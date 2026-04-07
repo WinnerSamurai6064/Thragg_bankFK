@@ -9,12 +9,18 @@ class AuthService {
 
   // ─── Banking Actions (thragg-bank-api) ──────────────────────────────────
   
-  static Future<Map<String, dynamic>> login([dynamic email, dynamic password]) async {
+  // FIXED: Added missing isLoggedIn method for main.dart
+  static Future<bool> isLoggedIn() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    return false; // Returns false so the app boots to the Login Screen
+  }
+
+  // FIXED: Changed to named parameters {} to match your UI
+  static Future<Map<String, dynamic>> login({dynamic email, dynamic password}) async {
     await Future.delayed(const Duration(seconds: 2));
     return {'success': true};
   }
 
-  // Changed to return a Map to prevent UI extraction errors
   static Future<Map<String, dynamic>> signup({
     dynamic fullName, dynamic email, dynamic password, dynamic confirmPassword, 
     dynamic phone, dynamic pin, dynamic username
@@ -26,7 +32,6 @@ class AuthService {
     }; 
   }
 
-  // Changed to return a Map containing 'new_balance' and 'error' 
   static Future<Map<String, dynamic>> transfer({
     dynamic toAccount, dynamic amount, dynamic note, 
     dynamic description, dynamic pin, dynamic bankName
@@ -34,7 +39,7 @@ class AuthService {
     await Future.delayed(const Duration(seconds: 2));
     return {
       'success': true,
-      'new_balance': 24350.50, // Dummy balance after transfer
+      'new_balance': 24350.50,
       'error': null
     };
   }
