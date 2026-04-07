@@ -9,18 +9,29 @@ class AuthService {
 
   // ─── Banking Actions (thragg-bank-api) ──────────────────────────────────
   
-  // FIXED: Added missing isLoggedIn method for main.dart
   static Future<bool> isLoggedIn() async {
     await Future.delayed(const Duration(milliseconds: 500));
     return false; // Returns false so the app boots to the Login Screen
   }
 
-  // FIXED: Changed to named parameters {} to match your UI
+  // FIXED: Returning a massive payload to prevent null crashes on the Home Screen
   static Future<Map<String, dynamic>> login({dynamic email, dynamic password}) async {
     await Future.delayed(const Duration(seconds: 2));
-    return {'success': true};
+    return {
+      'success': true,
+      'token': 'dummy_secure_token_12345',
+      'message': 'Login successful',
+      'user': {
+        'id': 'usr_987654321',
+        'name': 'Thragg Premium Member',
+        'fullName': 'Thragg Premium Member',
+        'accountNumber': '1029384756',
+        'balance': 24500.50,
+      }
+    };
   }
 
+  // FIXED: Padded the signup response just in case your UI routes directly to Home after signup
   static Future<Map<String, dynamic>> signup({
     dynamic fullName, dynamic email, dynamic password, dynamic confirmPassword, 
     dynamic phone, dynamic pin, dynamic username
@@ -28,6 +39,14 @@ class AuthService {
     await Future.delayed(const Duration(seconds: 2));
     return {
       'success': true,
+      'token': 'dummy_secure_token_12345',
+      'message': 'Account created successfully',
+      'user': {
+        'id': 'usr_987654321',
+        'fullName': fullName ?? 'New Thragg Member',
+        'accountNumber': '1029384756',
+        'balance': 0.00,
+      },
       'error': null
     }; 
   }
