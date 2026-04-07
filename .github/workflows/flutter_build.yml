@@ -28,8 +28,10 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
         
-      - name: Generate missing Android chassis
-        run: flutter create --project-name thragg_bank .
+      - name: Nuke old files and generate fresh Android chassis
+        run: |
+          rm -rf android
+          flutter create --platforms=android --project-name thragg_bank .
         
       - name: Build Release APK
         run: flutter build apk --release --no-tree-shake-icons
