@@ -9,28 +9,34 @@ class AuthService {
 
   // ─── Banking Actions (thragg-bank-api) ──────────────────────────────────
   
-  // Accepts 0, 1, or 2 positional arguments to stop the "0 given" error
   static Future<Map<String, dynamic>> login([dynamic email, dynamic password]) async {
     await Future.delayed(const Duration(seconds: 2));
     return {'success': true};
   }
 
-  // Uses named parameters to catch 'fullName' and anything else your UI sends
-  static Future<bool> signup({
+  // Changed to return a Map to prevent UI extraction errors
+  static Future<Map<String, dynamic>> signup({
     dynamic fullName, dynamic email, dynamic password, dynamic confirmPassword, 
     dynamic phone, dynamic pin, dynamic username
   }) async {
     await Future.delayed(const Duration(seconds: 2));
-    return true; 
+    return {
+      'success': true,
+      'error': null
+    }; 
   }
 
-  // Uses named parameters to catch 'toAccount' and others
-  static Future<bool> transfer({
+  // Changed to return a Map containing 'new_balance' and 'error' 
+  static Future<Map<String, dynamic>> transfer({
     dynamic toAccount, dynamic amount, dynamic note, 
     dynamic description, dynamic pin, dynamic bankName
   }) async {
     await Future.delayed(const Duration(seconds: 2));
-    return true;
+    return {
+      'success': true,
+      'new_balance': 24350.50, // Dummy balance after transfer
+      'error': null
+    };
   }
 
   // ─── Missing UI Methods ─────────────────────────────────────────────────
@@ -98,8 +104,8 @@ class AuthService {
 
 class UserModel {
   final String id;
-  final String fullName; // Fixed from 'name'
-  final String accountNumber; // Added missing field
+  final String fullName; 
+  final String accountNumber; 
   final double balance;
 
   UserModel({
@@ -109,7 +115,6 @@ class UserModel {
     this.balance = 24500.50,
   });
 
-  // Added missing copyWith method for state management
   UserModel copyWith({
     String? id,
     String? fullName,
@@ -127,9 +132,9 @@ class UserModel {
 
 class Transaction {
   final String id;
-  final String description; // Fixed from 'title'
+  final String description; 
   final double amount;
-  final DateTime createdAt; // Fixed from 'date'
+  final DateTime createdAt; 
   final bool isCredit;
 
   Transaction({
