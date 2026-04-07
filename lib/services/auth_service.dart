@@ -25,6 +25,19 @@ class AuthService {
     }
   }
 
+  // --- BULLETPROOF SIGNUP MOCK ---
+  // Accepts dynamic arguments to catch whatever your UI sends without crashing
+  static Future<bool> signup([dynamic a, dynamic b, dynamic c, dynamic d]) async {
+    await Future.delayed(const Duration(seconds: 2)); // High-fidelity loading simulation
+    return true; 
+  }
+
+  // --- BULLETPROOF TRANSFER MOCK ---
+  static Future<bool> transfer([dynamic a, dynamic b, dynamic c, dynamic d]) async {
+    await Future.delayed(const Duration(seconds: 2)); // High-fidelity loading simulation
+    return true;
+  }
+
   // ─── AI Edit Actions (huggingface-backend) ──────────────────────────────
   
   static Future<Map<String, dynamic>> processImageEdit({
@@ -57,4 +70,35 @@ class AuthService {
       return false;
     }
   }
+}
+
+// ─── High-Fidelity Mock Models ────────────────────────────────────────────
+// Placed here so your UI screens can instantly recognize them
+
+class UserModel {
+  final String id;
+  final String name;
+  final double balance;
+
+  UserModel({
+    this.id = 'usr_987654321', 
+    this.name = 'Thragg Premium Member', 
+    this.balance = 24500.50,
+  });
+}
+
+class Transaction {
+  final String id;
+  final String title;
+  final double amount;
+  final DateTime date;
+  final bool isCredit;
+
+  Transaction({
+    this.id = 'tx_12345',
+    this.title = 'Wire Transfer',
+    this.amount = 150.00,
+    required this.date,
+    this.isCredit = false,
+  });
 }
