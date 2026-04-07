@@ -27,6 +27,17 @@ jobs:
           
       - name: Install dependencies
         run: flutter pub get
+
+              - name: Install dependencies
+        run: flutter pub get
+        
+      # ADD THESE TWO LINES RIGHT HERE
+      - name: Generate missing Android chassis
+        run: flutter create .
+        
+      - name: Build Release APK
+        run: flutter build apk --release --no-tree-shake-icons
+
         
       - name: Build Release APK
         run: flutter build apk --release --no-tree-shake-icons
