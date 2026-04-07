@@ -28,9 +28,8 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
         
-           - name: Generate missing Android chassis
+      - name: Generate missing Android chassis
         run: flutter create --project-name thragg_bank .
-
         
       - name: Build Release APK
         run: flutter build apk --release --no-tree-shake-icons
